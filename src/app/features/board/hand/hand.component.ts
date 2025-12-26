@@ -1,5 +1,6 @@
 import { Component, inject, computed, signal, output, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { CardComponent } from '../card/card.component';
 import { GameStateService } from '../../../services/game-state.service';
 import { PeerService } from '../../../services/peer.service';
@@ -9,7 +10,7 @@ import { OdinGameLogic } from '../../../models/odin.logic';
 @Component({
   selector: 'app-hand',
   standalone: true,
-  imports: [CommonModule, CardComponent],
+  imports: [CommonModule, CardComponent, TranslateModule],
   template: `
     <div class="hand-container">
       <div class="cards-list">
@@ -24,17 +25,17 @@ import { OdinGameLogic } from '../../../models/odin.logic';
 
       <div class="controls" *ngIf="isMyTurn()">
         <div class="info" *ngIf="!isPickingUp()">
-           Selected: {{ selectedCards().length }} 
-           <span *ngIf="validationMessage()" class="error">({{ validationMessage() }})</span>
+           {{ 'HAND.SELECTED' | translate }}: {{ selectedCards().length }} 
+           <span *ngIf="validationError() as error" class="error">({{ error.key | translate:error.params }})</span>
         </div>
         <div class="info" *ngIf="isPickingUp()">
-           Select a card from the center...
+           {{ 'HAND.SELECT_FROM_CENTER' | translate }}
         </div>
 
         <div class="actions">
-          <button *ngIf="!isPickingUp()" (click)="play()" [disabled]="!canPlay()">PLAY</button>
+          <button *ngIf="!isPickingUp()" (click)="play()" [disabled]="!canPlay()">{{ 'HAND.PLAY' | translate }}</button>
           <button (click)="pass()" class="pass">
-            {{ isPickingUp() ? 'CANCEL' : 'PASS' }}
+            {{ (isPickingUp() ? 'HAND.CANCEL' : 'HAND.PASS') | translate }}
           </button>
         </div>
       </div>
@@ -128,7 +129,15 @@ export class HandComponent {
   });
 
   isValid = computed(() => this.validationResult().valid);
-  validationMessage = computed(() => this.validationResult().message);
+  validationError = computed(() => {
+    const res = this.validationResult();
+    if (res.valid) return null;
+    // Fallback to message if key not present (for compatibility)
+    return {
+      key: res.messageKey || res.message,
+      params: res.messageParams
+    };
+  });
 
   // Selection
   selectedCards = computed(() =>

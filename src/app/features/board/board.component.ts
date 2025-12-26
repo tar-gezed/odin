@@ -5,12 +5,14 @@ import { GameEngineService } from '../../services/game-engine.service';
 import { PeerService } from '../../services/peer.service';
 import { CardComponent } from './card/card.component';
 import { HandComponent } from './hand/hand.component';
+import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
+import { TranslateModule } from '@ngx-translate/core';
 import { Card } from '../../models/game.models';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, CardComponent, HandComponent],
+  imports: [CommonModule, CardComponent, HandComponent, TranslateModule, LanguageSwitcherComponent],
   template: `
     <div class="board-container">
       <!-- HEADER -->
@@ -19,34 +21,39 @@ import { Card } from '../../models/game.models';
            <h1>ODIN</h1>
            <span class="code">CODE: {{ state.roomCode() }}</span>
         </div>
+        
+        <div class="lang-switcher">
+            <app-language-switcher></app-language-switcher>
+        </div>
+
         <div class="turn-info">
-           Phase: {{ state.phase() }}
-           <span *ngIf="isMyTurn()" class="your-turn">YOUR TURN</span>
+           {{ 'BOARD.HEADER.PHASE' | translate }}: {{ 'PHASE.' + state.phase() | translate }}
+           <span *ngIf="isMyTurn()" class="your-turn">{{ 'BOARD.HEADER.YOUR_TURN' | translate }}</span>
         </div>
       </div>
 
       <!-- Pickup Banner (Floating Top) -->
       <div *ngIf="isPickingUp" class="pickup-banner">
-          <p>PICK UP A CARD FROM THE CENTER</p>
-          <button (click)="handlePass()">CANCEL</button>
+          <p>{{ 'BOARD.PICKUP_BANNER.TEXT' | translate }}</p>
+          <button (click)="handlePass()">{{ 'BOARD.PICKUP_BANNER.CANCEL' | translate }}</button>
       </div>
 
       <!-- Results Overlay -->
       <div *ngIf="state.phase() === 'ROUND_END' || state.phase() === 'GAME_END'" class="results-overlay">
           <div class="results-box">
-            <h2>{{ state.phase() === 'GAME_END' ? 'GAME OVER!' : 'ROUND OVER!' }}</h2>
+            <h2>{{ (state.phase() === 'GAME_END' ? 'BOARD.RESULTS.GAME_OVER' : 'BOARD.RESULTS.ROUND_OVER') | translate }}</h2>
             <div class="score-table">
                 <div *ngFor="let p of state.players()" class="score-row" style="display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee;">
                     <span>{{ p.name }}</span>
-                    <span class="score-val" style="font-weight: bold; color: var(--color-viking-red);">{{ p.score }} pts</span>
+                    <span class="score-val" style="font-weight: bold; color: var(--color-viking-red);">{{ p.score }} {{ 'BOARD.PLAYER.PTS' | translate }}</span>
                     <span *ngIf="p.id === state.winnerId()">🏆</span>
                 </div>
             </div>
             <div style="margin-top: 20px;">
                 <button *ngIf="showNextRoundButton()" (click)="engine.nextRound()" class="next-round-btn" style="background: var(--color-viking-red); color: white; padding: 10px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
-                    {{ state.phase() === 'GAME_END' ? 'RESTART GAME' : 'NEXT ROUND' }}
+                    {{ (state.phase() === 'GAME_END' ? 'BOARD.RESULTS.RESTART' : 'BOARD.RESULTS.NEXT_ROUND') | translate }}
                 </button>
-                <p *ngIf="!showNextRoundButton()" style="color: #888;">Waiting for host to continue...</p>
+                <p *ngIf="!showNextRoundButton()" style="color: #888;">{{ 'BOARD.RESULTS.WAITING_HOST' | translate }}</p>
             </div>
           </div>
       </div>
@@ -58,17 +65,22 @@ import { Card } from '../../models/game.models';
               [class.active]="p.id === state.currentPlayerId()"
               [class.me]="p.id === peer.myId()">
             <div class="p-name">{{ p.name }}</div>
-            <div class="p-cards">{{ p.handCount }} Cards</div>
-            <div class="p-score">{{ p.score }} pts</div>
+            <div class="p-cards">{{ p.handCount }} {{ 'BOARD.PLAYER.CARDS' | translate }}</div>
+            <div class="p-score">{{ p.score }} {{ 'BOARD.PLAYER.PTS' | translate }}</div>
          </div>
       </div>
 
       <!-- CENTER  -->
       <div class="center-area" [class.is-picking-up]="isPickingUp">
+         <!-- Pickup Instruction Overlay -->
+         <div *ngIf="isPickingUp" class="pickup-instruction">
+             {{ 'BOARD.CENTER.SELECT_INSTRUCTION' | translate }}
+         </div>
+
          <!-- Start Button for Host -->
          <div *ngIf="showStartButton()" class="start-overlay">
-             <h2>Waiting for players...</h2>
-             <button (click)="engine.startGame()">START GAME</button>
+             <h2>{{ 'BOARD.START_OVERLAY.WAITING' | translate }}</h2>
+             <button (click)="engine.startGame()">{{ 'BOARD.START_OVERLAY.START' | translate }}</button>
          </div>
 
          <!-- Play Mat Decoration -->
@@ -253,8 +265,7 @@ import { Card } from '../../models/game.models';
     }
 
     /* Highlight center area when picking up */
-    .center-area.is-picking-up::after {
-        content: 'Select a card to add to your hand';
+    .pickup-instruction {
         display: flex;
         justify-content: center;
         align-items: flex-start;
@@ -271,6 +282,7 @@ import { Card } from '../../models/game.models';
         pointer-events: none;
         background: rgba(242, 169, 0, 0.1);
         animation: pulseBorder 1.5s infinite;
+        z-index: 55; /* Higher than mat, lower than cards? No, cards are z-index 50/100? */
     }
 
     @keyframes pulseBorder {
@@ -378,6 +390,7 @@ export class BoardComponent {
   state = inject(GameStateService);
   engine = inject(GameEngineService);
   peer = inject(PeerService);
+  // No need to inject TranslateService unless used in code logic, pipe is enough for template
 
   topCards = this.state.topCenterCards;
 

@@ -2,25 +2,31 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { GameEngineService } from '../../services/game-engine.service';
+import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-lobby',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule, LanguageSwitcherComponent],
   template: `
     <div class="lobby-container">
-      <h1>ODIN</h1>
+      <div class="lang-pos">
+        <app-language-switcher></app-language-switcher>
+      </div>
+      
+      <h1>{{ 'LOBBY.TITLE' | translate }}</h1>
       
       <div class="panel">
-        <label>Pseudo</label>
-        <input [(ngModel)]="username" placeholder="Votre nom" />
+        <label>{{ 'LOBBY.PSEUDO_LABEL' | translate }}</label>
+        <input [(ngModel)]="username" [placeholder]="'LOBBY.PSEUDO_PLACEHOLDER' | translate" />
         
         <div class="actions">
-           <button (click)="create()">CRÉER</button>
+           <button (click)="create()">{{ 'LOBBY.CREATE' | translate }}</button>
            <div class="join-area">
-             <input [(ngModel)]="code" placeholder="Code (4 chiffres)" maxlength="4" />
-             <button (click)="join()">REJOINDRE</button>
+             <input [(ngModel)]="code" [placeholder]="'LOBBY.CODE_PLACEHOLDER' | translate" maxlength="4" />
+             <button (click)="join()">{{ 'LOBBY.JOIN' | translate }}</button>
            </div>
         </div>
         
@@ -37,6 +43,13 @@ import { GameEngineService } from '../../services/game-engine.service';
       height: 100vh;
       background: linear-gradient(135deg, var(--color-ice-white) 0%, var(--color-ice-dark) 100%);
       color: var(--color-text-main);
+      position: relative;
+    }
+    .lang-pos {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 100;
     }
     h1 { 
         font-size: 6rem; 
@@ -123,13 +136,14 @@ import { GameEngineService } from '../../services/game-engine.service';
 export class LobbyComponent {
   engine = inject(GameEngineService);
   router = inject(Router);
+  translate = inject(TranslateService);
 
   username = 'Player';
   code = '';
   error = signal('');
 
   async create() {
-    this.error.set('Création...');
+    this.error.set(this.translate.instant('LOBBY.CREATING'));
     try {
       await this.engine.createGame(this.username);
       this.router.navigate(['/board']);
@@ -140,15 +154,22 @@ export class LobbyComponent {
 
   async join() {
     if (this.code.length !== 4) {
-      this.error.set('Code invalide (4 chiffres)');
+      this.error.set(this.translate.instant('LOBBY.INVALID_CODE'));
       return;
     }
-    this.error.set('Connexion...');
+    this.error.set(this.translate.instant('LOBBY.CONNECTING'));
     try {
       await this.engine.joinGame(this.code, this.username);
       this.router.navigate(['/board']);
     } catch (e: any) {
-      this.error.set('Erreur: ' + (e.message || 'Hôte introuvable'));
+      const msg = e.message || 'Hôte introuvable';
+      // Basic check if it's the known error, else use raw
+      // In a real app we'd have error codes
+      if (msg.includes('peer') || msg.includes('Hôte') || msg.includes('Host')) {
+        this.error.set(this.translate.instant('LOBBY.ERROR_HOST_NOT_FOUND'));
+      } else {
+        this.error.set(this.translate.instant('LOBBY.ERROR_GENERIC') + msg);
+      }
     }
   }
 }
