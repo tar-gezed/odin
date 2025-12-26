@@ -1,1 +1,53 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global Styles & Theme */
+@font-face {
+    font-family: 'Ferrocarbon';
+    src: url('app/assets/fonts/Ferrocarbon.otf') format('opentype');
+}
+
+:root {
+    --color-ice-dark: #7DB6D9;
+    /* Main backgroundish blue */
+    --color-ice-light: #C0E4F2;
+    --color-ice-white: #EFF9FC;
+    --color-viking-red: #D94F30;
+    --color-viking-orange: #F2A900;
+    --color-wood-dark: #4A3B32;
+    --color-wood-light: #8C6E56;
+    --color-text-main: #2C3E50;
+
+    --font-main: 'Inter', sans-serif;
+    --font-display: 'Ferrocarbon', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-main);
+    background-color: var(--color-ice-dark);
+    color: var(--color-text-main);
+    overflow: hidden;
+    user-select: none;
+}
+
+button {
+    font-family: var(--font-main);
+    transition: transform 0.1s ease, filter 0.2s ease;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-wood-light);
+    border-radius: 4px;
+}

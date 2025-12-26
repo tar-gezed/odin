@@ -25,7 +25,7 @@ import { Card } from '../../models/game.models';
         </div>
       </div>
 
-      <!-- Pickup Banner -->
+      <!-- Pickup Banner (Floating Top) -->
       <div *ngIf="isPickingUp" class="pickup-banner">
           <p>PICK UP A CARD FROM THE CENTER</p>
           <button (click)="handlePass()">CANCEL</button>
@@ -33,18 +33,22 @@ import { Card } from '../../models/game.models';
 
       <!-- Results Overlay -->
       <div *ngIf="state.phase() === 'ROUND_END' || state.phase() === 'GAME_END'" class="results-overlay">
-          <h2>{{ state.phase() === 'GAME_END' ? 'GAME OVER!' : 'ROUND OVER!' }}</h2>
-          <div class="score-table">
-              <div *ngFor="let p of state.players()" class="score-row">
-                  <span>{{ p.name }}</span>
-                  <span class="score-val">{{ p.score }} pts</span>
-                  <span *ngIf="p.id === state.winnerId()">🏆</span>
-              </div>
+          <div class="results-box">
+            <h2>{{ state.phase() === 'GAME_END' ? 'GAME OVER!' : 'ROUND OVER!' }}</h2>
+            <div class="score-table">
+                <div *ngFor="let p of state.players()" class="score-row" style="display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee;">
+                    <span>{{ p.name }}</span>
+                    <span class="score-val" style="font-weight: bold; color: var(--color-viking-red);">{{ p.score }} pts</span>
+                    <span *ngIf="p.id === state.winnerId()">🏆</span>
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <button *ngIf="showNextRoundButton()" (click)="engine.nextRound()" class="next-round-btn" style="background: var(--color-viking-red); color: white; padding: 10px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                    {{ state.phase() === 'GAME_END' ? 'RESTART GAME' : 'NEXT ROUND' }}
+                </button>
+                <p *ngIf="!showNextRoundButton()" style="color: #888;">Waiting for host to continue...</p>
+            </div>
           </div>
-          <button *ngIf="showNextRoundButton()" (click)="engine.nextRound()" class="next-round-btn">
-              {{ state.phase() === 'GAME_END' ? 'RESTART GAME' : 'NEXT ROUND' }}
-          </button>
-          <p *ngIf="!showNextRoundButton()">Waiting for host to continue...</p>
       </div>
 
       <!-- PLAYERS -->
@@ -54,8 +58,8 @@ import { Card } from '../../models/game.models';
               [class.active]="p.id === state.currentPlayerId()"
               [class.me]="p.id === peer.myId()">
             <div class="p-name">{{ p.name }}</div>
-            <div class="p-hand">{{ p.handCount }} Cards</div>
-            <div class="p-score">{{ p.score }} Total Pts</div>
+            <div class="p-cards">{{ p.handCount }} Cards</div>
+            <div class="p-score">{{ p.score }} pts</div>
          </div>
       </div>
 
@@ -66,6 +70,9 @@ import { Card } from '../../models/game.models';
              <h2>Waiting for players...</h2>
              <button (click)="engine.startGame()">START GAME</button>
          </div>
+
+         <!-- Play Mat Decoration -->
+         <div class="play-mat"></div>
 
          <!-- Active Play Pile (Last 2 sets) -->
          <div class="play-stack">
@@ -80,81 +87,160 @@ import { Card } from '../../models/game.models';
       </div>
 
       <!-- HAND -->
-      <app-hand (onPlay)="handlePlay($event)" (onPass)="handlePass()">
+      <app-hand 
+            (onPlay)="handlePlay($event)" 
+            (onPass)="handlePass()"
+            [isPickingUp]="isPickingUp">
       </app-hand>
     </div>
   `,
   styles: [`
     .board-container {
       height: 100vh;
-      background: #0f172a;
+      background: linear-gradient(135deg, var(--color-ice-light) 0%, var(--color-ice-dark) 100%);
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      color: white;
-      font-family: 'Inter', sans-serif;
+      color: var(--color-text-main);
+      font-family: var(--font-main);
+      position: relative;
     }
+    
+    /* Decoration - Icebergs/Mountains (pseudo-element for aesthetics) */
+    .board-container::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 30vh;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23EFF9FC" fill-opacity="0.4" d="M0,224L60,213.3C120,203,240,181,360,181.3C480,181,600,203,720,224C840,245,960,267,1080,261.3C1200,256,1320,224,1380,208L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>');
+        background-repeat: no-repeat;
+        background-size: cover;
+        pointer-events: none;
+        z-index: 0;
+    }
+
     .header {
-      padding: 10px 20px;
+      padding: 15px 30px;
       display: flex;
       justify-content: space-between;
-      background: #1e293b;
       align-items: center;
-      border-bottom: 1px solid #334155;
+      background: rgba(255, 255, 255, 0.5); /* Glassmorphism */
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
       z-index: 100;
+      border-bottom: 1px solid rgba(255,255,255,0.6);
     }
-    h1 { margin: 0; font-size: 1.5rem; color: #f59e0b; }
-    .code { font-weight: bold; background: #334155; padding: 5px 10px; border-radius: 5px; margin-left: 10px; }
-    .your-turn { background: #22c55e; padding: 5px 10px; border-radius: 5px; font-weight: bold; margin-left: 10px; }
+    .room-info {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    h1 { 
+        margin: 0; 
+        font-size: 3rem; /* Slightly larger title */
+        color: var(--color-viking-red); 
+        text-shadow: 2px 2px 0px rgba(0,0,0,0.1); 
+        letter-spacing: 2px;
+        font-family: var(--font-display, sans-serif);
+        font-weight: 900;
+        line-height: 1; /* Fix vertical alignment */
+    }
+    .code { 
+        font-weight: bold; 
+        background: white; 
+        color: var(--color-text-main);
+        padding: 8px 16px; 
+        border-radius: 12px; 
+        margin-left: 0; /* Handled by gap */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        font-size: 1.2rem;
+    }
+    .turn-info {
+        font-weight: 600;
+        background: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .your-turn { 
+        background: var(--color-viking-red); 
+        color: white; 
+        padding: 4px 10px; 
+        border-radius: 6px; 
+        font-size: 0.8rem;
+        animation: pulseTurn 1.5s infinite;
+    }
 
-    /* Redesigned Pickup Banner */
+    @keyframes pulseTurn {
+        0% { box-shadow: 0 0 0 0 rgba(217, 79, 48, 0.4); }
+        70% { box-shadow: 0 0 0 10px rgba(217, 79, 48, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(217, 79, 48, 0); }
+    }
+
+    /* Pickup Banner */
     .pickup-banner {
-        background: linear-gradient(90deg, #f59e0b, #d97706);
-        color: #0f172a;
-        padding: 10px;
+        background: var(--color-viking-orange);
+        color: white;
+        padding: 12px;
         text-align: center;
         font-weight: bold;
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 20px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        animation: slideDown 0.3s ease-out;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        z-index: 90;
+        border-bottom: 4px solid #cc8d00;
     }
-    .pickup-banner p { margin: 0; font-size: 1.1rem; }
+    .pickup-banner p { margin: 0; font-size: 1.2rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
     .pickup-banner button { 
-        background: #0f172a; 
-        color: white; 
+        background: white; 
+        color: var(--color-viking-orange); 
         border: none; 
-        padding: 5px 15px; 
-        border-radius: 5px; 
+        padding: 8px 16px; 
+        border-radius: 20px; 
         cursor: pointer;
-        font-size: 0.9rem;
+        font-weight: 800;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
-
-    @keyframes slideDown {
-        from { transform: translateY(-100%); }
-        to { transform: translateY(0); }
-    }
+    .pickup-banner button:hover { transform: translateY(-1px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
 
     .players-bar {
       display: flex;
       justify-content: center;
       gap: 20px;
       padding: 15px;
-      background: #0f172a;
+      /* Remove dark bg */
+      z-index: 10;
     }
     .player-badge {
-      background: #334155;
-      padding: 8px 16px;
-      border-radius: 10px;
+      background: white;
+      padding: 10px 20px;
+      border-radius: 12px;
       text-align: center;
-      border: 2px solid transparent;
-      opacity: 0.8;
+      border: 3px solid transparent;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
       transition: all 0.3s;
+      color: var(--color-text-main);
+      position: relative;
     }
-    .player-badge.active { border-color: #f59e0b; opacity: 1; transform: scale(1.05); background: #1e293b; }
-    .player-badge.me { box-shadow: 0 0 15px rgba(245, 158, 11, 0.2); }
+    .player-badge.active { 
+        border-color: var(--color-viking-orange); 
+        transform: translateY(-5px); 
+        box-shadow: 0 10px 20px rgba(242, 169, 0, 0.2);
+    }
+    .player-badge.me { 
+        border-color: var(--color-ice-dark); 
+        background: #f0f9ff;
+    }
+    .p-name { font-weight: 800; font-size: 1.1rem; }
+    .p-cards { font-size: 0.9rem; color: #666; margin-top: 4px;}
+    .p-score { font-weight: bold; color: var(--color-viking-red); margin-top: 4px; }
     
     .center-area {
       flex: 1;
@@ -162,37 +248,65 @@ import { Card } from '../../models/game.models';
       display: flex;
       justify-content: center;
       align-items: center;
-      background: radial-gradient(circle, #1e293b 0%, #0f172a 100%);
+      background: none; /* Removed heavy gradients */
+      z-index: 10;
     }
 
     /* Highlight center area when picking up */
     .center-area.is-picking-up::after {
-        content: '';
+        content: 'Select a card to add to your hand';
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 40px;
+        color: white;
+        font-weight: bold;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        font-size: 1.5rem;
+        
         position: absolute;
-        inset: 10%;
-        border: 2px dashed #f59e0b;
-        border-radius: 20px;
+        inset: 20px;
+        border: 4px dashed var(--color-viking-orange);
+        border-radius: 30px;
         pointer-events: none;
-        animation: pulse 2s infinite;
+        background: rgba(242, 169, 0, 0.1);
+        animation: pulseBorder 1.5s infinite;
     }
 
-    @keyframes pulse {
-        0% { opacity: 0.3; transform: scale(1); }
-        50% { opacity: 0.6; transform: scale(1.02); }
-        100% { opacity: 0.3; transform: scale(1); }
+    @keyframes pulseBorder {
+        0% { opacity: 0.8; }
+        50% { opacity: 0.4; }
+        100% { opacity: 0.8; }
     }
 
     .play-stack {
        display: flex;
        justify-content: center;
        align-items: center;
-       min-height: 150px;
+       min-height: 200px;
+       /* Place a "mat" or area indicator */
+    }
+
+    .play-mat {
+        position: absolute;
+        width: 860px;
+        height: 500px; /* Taller too */
+        border: 3px solid rgba(255,255,255,0.6);
+        border-radius: 40px;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
+        pointer-events: none;
+        background: rgba(255,255,255,0.15);
+        box-shadow: inset 0 0 30px rgba(255,255,255,0.2);
     }
     
     .card-set {
        display: flex;
+       justify-content: center;
        gap: 10px;
        transition: transform 0.3s;
+       filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
     }
     .card-set.selectable {
         cursor: pointer;
@@ -201,8 +315,63 @@ import { Card } from '../../models/game.models';
     .card-set.selectable app-card {
         cursor: pointer;
         pointer-events: auto;
-        box-shadow: 0 0 20px #f59e0b;
+        /* Highlight cards specifically */
+        transition: transform 0.2s;
     }
+    .card-set.selectable app-card:hover {
+        transform: scale(1.1) translateY(-10px);
+        filter: brightness(1.1);
+    }
+
+    .results-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(125, 182, 217, 0.95); /* ice dark with opacity */
+        z-index: 200;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        animation: fadeIn 0.3s;
+    }
+    .results-box {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        color: var(--color-text-main);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        text-align: center;
+        min-width: 400px;
+    }
+    .start-overlay {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        z-index: 60;
+    }
+    .start-overlay button {
+        background: var(--color-viking-orange);
+        color: white;
+        font-size: 1.5rem;
+        padding: 15px 40px;
+        border-radius: 50px;
+        border: none;
+        border-bottom: 6px solid #cc8d00;
+        font-weight: 900;
+        cursor: pointer;
+    }
+    .start-overlay button:active {
+        transform: translateY(4px);
+        border-bottom-width: 2px;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* Mobile Responsive tweaks maybe? */
+
   `]
 })
 export class BoardComponent {
