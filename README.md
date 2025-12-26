@@ -1,59 +1,54 @@
-# OdinGame
+# ❄️ Odin Board Game
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.4.
+[![Angular](https://img.shields.io/badge/Angular-19-DD0031?style=for-the-badge&logo=angular)](https://angular.io/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Multiplayer](https://img.shields.io/badge/Multiplayer-P2P-orange?style=for-the-badge)](https://peerjs.com/)
 
-## Development server
+A smooth and modern digital adaptation of the famous **Odin** card game. Play tactically, discard your cards, and be the first to empty your hand in this elegant P2P version.
 
-To start a local development server, run:
+## ✨ Features
 
+- 📡 **P2P Multiplayer**: Play with friends without an intermediate server thanks to **PeerJS** integration. Create a lobby with a 4-digit code and invite your opponents.
+- 🃏 **Complete Rules**: 
+    - Automatic management of combinations (same color or same value).
+    - Descending value system (e.g., an 8 and a 2 form an 82).
+    - Integrated first-turn rule.
+    - Manual "Pick-up" mechanic from the center.
+- 🎨 **Premium Design**: Immersive interface with an "icy" theme, using harmonious HSL color palettes and an elegant dark mode.
+- 🌍 **Internationalization**: Full support for French and English (via `ngx-translate`).
+- ⚡ **Performance**: Developed with the latest **Angular 19** features (Signals, Standalone Components, OnPush).
+
+## 🚀 Installation & Development
+
+### Prerequisites
+- Node.js (v18+)
+- npm
+
+### Installation
 ```bash
-ng serve
+git clone https://github.com/your-username/odin.git
+cd odin
+npm install
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+### Run the project
 ```bash
-ng generate component component-name
+npm start
 ```
+The application will be available at `http://localhost:4200`.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🛠 Tech Stack
 
-```bash
-ng generate --help
-```
+- **Framework**: [Angular 19](https://angular.dev/)
+- **State Management**: Angular Signals
+- **Networking**: [PeerJS](https://peerjs.com/) (WebRTC)
+- **Styling**: Vanilla CSS with CSS Variables and Flexbox/Grid
+- **I18n**: `@ngx-translate/core`
+- **Unit Testing**: Jasmine (Angular Default)
 
-## Building
+## 📖 Game Rules
+The goal is to get rid of all your cards. Each turn, you must play a stronger combination than the previous one or pick up a card from the center to pass your turn. 
+*Detailed guides in multiple languages are available at the root of the project (.pdf files).*
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+Developed with ❤️ by Quentin.
