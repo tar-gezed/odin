@@ -1,0 +1,64 @@
+{
+    "LOBBY": {
+        "TITLE": "ODIN",
+        "PSEUDO_LABEL": "Pseudo",
+        "PSEUDO_PLACEHOLDER": "Votre nom",
+        "CREATE": "CRÉER",
+        "JOIN": "REJOINDRE",
+        "CODE_PLACEHOLDER": "Code (4 chiffres)",
+        "CREATING": "Création...",
+        "INVALID_CODE": "Code invalide (4 chiffres)",
+        "CONNECTING": "Connexion...",
+        "ERROR_HOST_NOT_FOUND": "Erreur: Hôte introuvable",
+        "ERROR_GENERIC": "Erreur : "
+    },
+    "BOARD": {
+        "HEADER": {
+            "PHASE": "Phase",
+            "YOUR_TURN": "A TOI DE JOUER"
+        },
+        "PICKUP_BANNER": {
+            "TEXT": "RÉCUPÈRE UNE CARTE AU CENTRE",
+            "CANCEL": "ANNULER"
+        },
+        "START_OVERLAY": {
+            "WAITING": "En attente de joueurs...",
+            "START": "LANCER LA PARTIE"
+        },
+        "RESULTS": {
+            "GAME_OVER": "PARTIE TERMINÉE !",
+            "ROUND_OVER": "MANCHE TERMINÉE !",
+            "RESTART": "RECOMMENCER",
+            "NEXT_ROUND": "MANCHE SUIVANTE",
+            "WAITING_HOST": "En attente de l'hôte..."
+        },
+        "PLAYER": {
+            "CARDS": "Cartes",
+            "PTS": "pts"
+        },
+        "CENTER": {
+            "SELECT_INSTRUCTION": "Choisis une carte à ajouter à ta main"
+        }
+    },
+    "HAND": {
+        "SELECTED": "Sélectionné",
+        "PLAY": "JOUER",
+        "PASS": "PASSER",
+        "CANCEL": "ANNULER",
+        "SELECT_FROM_CENTER": "Choisis une carte du centre..."
+    },
+    "ERRORS": {
+        "SAME_COLOR_OR_VALUE": "Les cartes doivent être de même couleur OU même valeur.",
+        "MUST_BE_HIGHER": "Doit être plus fort ou plus de cartes.",
+        "MUST_PLAY_COUNT": "Vous devez jouer {{count1}} ou {{count2}} cartes.",
+        "VALUE_NOT_HIGHER": "La valeur {{played}} n'est pas strictement supérieure à {{center}}.",
+        "FIRST_TURN_RULE": "Pour commencer, joue 1 carte (ou toute ta main) !",
+        "NOT_YOUR_TURN": "Ce n'est pas votre tour."
+    },
+    "PHASE": {
+        "LOBBY": "ACCUEIL",
+        "PLAYING": "JEU",
+        "ROUND_END": "FIN DE MANCHE",
+        "GAME_END": "FIN DE PARTIE"
+    }
+}

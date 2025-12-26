@@ -1,0 +1,64 @@
+{
+    "LOBBY": {
+        "TITLE": "ODIN",
+        "PSEUDO_LABEL": "Pseudo",
+        "PSEUDO_PLACEHOLDER": "Your name",
+        "CREATE": "CREATE",
+        "JOIN": "JOIN",
+        "CODE_PLACEHOLDER": "Code (4 digits)",
+        "CREATING": "Creating...",
+        "INVALID_CODE": "Invalid code (4 digits)",
+        "CONNECTING": "Connecting...",
+        "ERROR_HOST_NOT_FOUND": "Error: Host not found",
+        "ERROR_GENERIC": "Error: "
+    },
+    "BOARD": {
+        "HEADER": {
+            "PHASE": "Phase",
+            "YOUR_TURN": "YOUR TURN"
+        },
+        "PICKUP_BANNER": {
+            "TEXT": "PICK UP A CARD FROM THE CENTER",
+            "CANCEL": "CANCEL"
+        },
+        "START_OVERLAY": {
+            "WAITING": "Waiting for players...",
+            "START": "START GAME"
+        },
+        "RESULTS": {
+            "GAME_OVER": "GAME OVER!",
+            "ROUND_OVER": "ROUND OVER!",
+            "RESTART": "RESTART GAME",
+            "NEXT_ROUND": "NEXT ROUND",
+            "WAITING_HOST": "Waiting for host to continue..."
+        },
+        "PLAYER": {
+            "CARDS": "Cards",
+            "PTS": "pts"
+        },
+        "CENTER": {
+            "SELECT_INSTRUCTION": "Select a card to add to your hand"
+        }
+    },
+    "HAND": {
+        "SELECTED": "Selected",
+        "PLAY": "PLAY",
+        "PASS": "PASS",
+        "CANCEL": "CANCEL",
+        "SELECT_FROM_CENTER": "Select a card from the center..."
+    },
+    "ERRORS": {
+        "SAME_COLOR_OR_VALUE": "Cards must be of the same color OR same value.",
+        "MUST_BE_HIGHER": "Must be higher value or more cards.",
+        "MUST_PLAY_COUNT": "You must play {{count1}} or {{count2}} cards.",
+        "VALUE_NOT_HIGHER": "Value {{played}} is not strictly higher than {{center}}.",
+        "FIRST_TURN_RULE": "You can only play 1 card to start (or your whole hand)!",
+        "NOT_YOUR_TURN": "It is not your turn."
+    },
+    "PHASE": {
+        "LOBBY": "LOBBY",
+        "PLAYING": "PLAYING",
+        "ROUND_END": "ROUND END",
+        "GAME_END": "GAME END"
+    }
+}
