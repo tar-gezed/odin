@@ -1,7 +1,7 @@
 /* Global Styles & Theme */
 @font-face {
     font-family: 'Ferrocarbon';
-    src: url('/assets/fonts/Ferrocarbon.otf') format('opentype');
+    src: url('../public/assets/fonts/Ferrocarbon.otf') format('opentype');
 }
 
 :root {
