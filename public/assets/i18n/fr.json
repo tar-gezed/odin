@@ -52,6 +52,7 @@
         "MUST_BE_HIGHER": "Doit être plus fort ou plus de cartes.",
         "MUST_PLAY_COUNT": "Vous devez jouer {{count1}} ou {{count2}} cartes.",
         "VALUE_NOT_HIGHER": "La valeur {{played}} n'est pas strictement supérieure à {{center}}.",
+        "FIRST_TURN_RULE": "Pour commencer, joue 1 carte (ou toute ta main) !",
         "NOT_YOUR_TURN": "Ce n'est pas votre tour."
     },
     "PHASE": {

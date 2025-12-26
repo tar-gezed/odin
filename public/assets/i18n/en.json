@@ -52,6 +52,7 @@
         "MUST_BE_HIGHER": "Must be higher value or more cards.",
         "MUST_PLAY_COUNT": "You must play {{count1}} or {{count2}} cards.",
         "VALUE_NOT_HIGHER": "Value {{played}} is not strictly higher than {{center}}.",
+        "FIRST_TURN_RULE": "You can only play 1 card to start (or your whole hand)!",
         "NOT_YOUR_TURN": "It is not your turn."
     },
     "PHASE": {

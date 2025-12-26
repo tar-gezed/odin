@@ -293,13 +293,14 @@ export class GameEngineService {
         // Logic: if consecutive passes cleared stack, top is empty.
         const topCards = centerStack.length > 0 ? centerStack[centerStack.length - 1] : [];
 
-        const valid = OdinGameLogic.validatePlay(cards, topCards);
+        const currentHandCount = state.players.find(p => p.id === playerId)?.handCount || 0;
+        const valid = OdinGameLogic.validatePlay(cards, topCards, currentHandCount);
         if (!valid.valid) {
             console.warn('Invalid play by', playerId, valid.message);
             return;
         }
 
-        const currentHandCount = state.players.find(p => p.id === playerId)?.handCount || 0;
+        // currentHandCount is already defined above for validation
         const newHandCount = currentHandCount - cards.length;
 
         // --- ROUND END CHECK ---

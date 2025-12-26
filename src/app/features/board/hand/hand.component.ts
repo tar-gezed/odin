@@ -125,7 +125,7 @@ export class HandComponent {
   validationResult = computed(() => {
     const selected = this.mySortedHand().filter(c => this.selectedIds().has(c.id));
     const center = this.state.topCenterCards();
-    return OdinGameLogic.validatePlay(selected, center || []);
+    return OdinGameLogic.validatePlay(selected, center || [], this.mySortedHand().length);
   });
 
   isValid = computed(() => this.validationResult().valid);

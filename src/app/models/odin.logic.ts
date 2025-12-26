@@ -58,7 +58,7 @@ export class OdinGameLogic {
         return allSameColor || allSameValue;
     }
 
-    static validatePlay(playedCards: Card[], centerCards: Card[]): PlayResult {
+    static validatePlay(playedCards: Card[], centerCards: Card[], playerHandCount?: number): PlayResult {
         // 1. Validate combination (Color or Value)
         if (!this.isValidCombination(playedCards)) {
             return {
@@ -69,6 +69,16 @@ export class OdinGameLogic {
         }
 
         if (centerCards.length === 0) {
+            // Rule: First turn (or clearing set) -> Only 1 card OR entire hand
+            if (playerHandCount !== undefined) {
+                if (playedCards.length > 1 && playedCards.length !== playerHandCount) {
+                    return {
+                        valid: false,
+                        message: 'You can only play 1 card to start (or your whole hand)!',
+                        messageKey: 'ERRORS.FIRST_TURN_RULE'
+                    };
+                }
+            }
             return { valid: true, playedValue: this.getCardsValue(playedCards) };
         }
 
