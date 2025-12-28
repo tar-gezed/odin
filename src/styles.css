@@ -51,3 +51,94 @@ button:active {
     background: var(--color-wood-light);
     border-radius: 4px;
 }
+
+/* View Transition Animations */
+
+/* The Shield Wiper Animation */
+::view-transition-group(root) {
+    animation-duration: 2s;
+    overflow: hidden;
+}
+
+::view-transition-old(root) {
+    animation: none;
+    opacity: 1;
+    z-index: 1;
+}
+
+::view-transition-new(root) {
+    animation: page-wipe 2s linear forwards;
+    z-index: 2;
+    mix-blend-mode: normal;
+    clip-path: inset(0 100% 0 0);
+}
+
+/* Shield Animation Helper */
+/* The element in the DOM is just a placeholder to create the 'shield' transition name.
+   We hide the snapshots and style the GROUP itself to look like the shield. */
+
+::view-transition-group(shield-helper) {
+    /* Force it to be above everything */
+    z-index: 100;
+
+    /* Initial Position & Size */
+    /* We ignore the rect of the helper element and force our own */
+    position: fixed;
+    top: 50%;
+    left: 0;
+    width: 100vh;
+    height: 100vh;
+    margin-top: -50vh;
+    margin-left: -50vh;
+
+    /* Visuals */
+    background-image: url('/assets/imgs/viking_shield.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    /* Animation */
+    animation: shield-roll 2s linear forwards;
+    pointer-events: none;
+}
+
+/* Hide the actual old/new images of the helper div */
+::view-transition-old(shield-helper),
+::view-transition-new(shield-helper) {
+    display: none;
+}
+
+/* The Helper Element in DOM */
+.view-transition-shield-helper {
+    view-transition-name: shield-helper;
+    /* It needs to be painted to generate a snapshot, but can be empty/invisible visually */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    /* Contain paint helps performance and might ensure it's tracked even if offscreen */
+    contain: paint;
+}
+
+@keyframes shield-roll {
+    0% {
+        left: -50%;
+        transform: rotate(0deg);
+    }
+
+    100% {
+        left: 150%;
+        transform: rotate(720deg);
+    }
+}
+
+@keyframes page-wipe {
+    0% {
+        clip-path: inset(0 150% 0 0);
+    }
+
+    100% {
+        clip-path: inset(0 -50% 0 0);
+    }
+}

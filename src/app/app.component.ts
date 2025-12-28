@@ -6,7 +6,10 @@ import { TranslateService } from '@ngx-translate/core';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet],
-  template: `<router-outlet></router-outlet>`,
+  template: `
+    <router-outlet></router-outlet>
+    <div class="view-transition-shield-helper"></div>
+  `,
   styles: [`
     :host {
       display: block;
