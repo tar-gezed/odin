@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameStateService } from '../../services/game-state.service';
 import { GameEngineService } from '../../services/game-engine.service';
 import { PeerService } from '../../services/peer.service';
+import { Router } from '@angular/router';
 import { CardComponent } from './card/card.component';
 import { HandComponent } from './hand/hand.component';
 import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
@@ -18,8 +19,10 @@ import { Card } from '../../models/game.models';
       <!-- HEADER -->
       <div class="header">
         <div class="room-info">
-           <h1>ODIN</h1>
-           <span class="code">CODE: {{ state.roomCode() }}</span>
+           <h1 (click)="onLogoClick()" title="Home" style="cursor: pointer;">ODIN</h1>
+           <span class="code" (click)="copyRoomCode()" [title]="'BOARD.ROOM_CODE_COPIED' | translate" style="cursor: pointer;">
+              CODE: {{ state.roomCode() }}
+           </span>
         </div>
         
         <div class="lang-switcher">
@@ -30,6 +33,27 @@ import { Card } from '../../models/game.models';
            {{ 'BOARD.HEADER.PHASE' | translate }}: {{ 'PHASE.' + state.phase() | translate }}
            <span *ngIf="isMyTurn()" class="your-turn">{{ 'BOARD.HEADER.YOUR_TURN' | translate }}</span>
         </div>
+      </div>
+
+      <!-- Toast Notification -->
+      <div *ngIf="showCopyToast()" class="copy-toast">
+          {{ 'BOARD.ROOM_CODE_COPIED' | translate }}
+      </div>
+
+      <!-- Exit Confirmation Modal -->
+      <div *ngIf="isExitModalOpen()" class="modal-overlay">
+          <div class="modal-box">
+              <h2>{{ 'BOARD.CONFIRM_EXIT.TITLE' | translate }}</h2>
+              <p>{{ 'BOARD.CONFIRM_EXIT.MESSAGE' | translate }}</p>
+              <div class="modal-actions">
+                  <button class="btn-cancel" (click)="isExitModalOpen.set(false)">
+                      {{ 'BOARD.CONFIRM_EXIT.STAY' | translate }}
+                  </button>
+                  <button class="btn-confirm" (click)="confirmExit()">
+                      {{ 'BOARD.CONFIRM_EXIT.EXIT' | translate }}
+                  </button>
+              </div>
+          </div>
       </div>
 
       <!-- Pickup Banner (Floating Top) -->
@@ -390,18 +414,121 @@ import { Card } from '../../models/game.models';
 
     /* Mobile Responsive tweaks maybe? */
 
+    /* Copy Toast */
+    .copy-toast {
+        position: fixed;
+        bottom: 120px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 10px 25px;
+        border-radius: 30px;
+        font-weight: 600;
+        z-index: 1000;
+        animation: slideUpFade 0.3s ease-out, fadeOut 0.3s ease-in 2s forwards;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    @keyframes slideUpFade {
+        from { opacity: 0; transform: translate(-50%, 20px); }
+        to { opacity: 1; transform: translate(-50%, 0); }
+    }
+    @keyframes fadeOut {
+        to { opacity: 0; }
+    }
+
+    /* Modals */
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(5px);
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.2s;
+    }
+    .modal-box {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        max-width: 450px;
+        width: 90%;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        border: 4px solid var(--color-ice-dark);
+    }
+    .modal-box h2 {
+        margin: 0 0 15px;
+        color: var(--color-viking-red);
+        font-weight: 900;
+        font-size: 2rem;
+    }
+    .modal-box p {
+        font-size: 1.1rem;
+        color: #444;
+        margin-bottom: 30px;
+    }
+    .modal-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+    }
+    .modal-actions button {
+        padding: 12px 30px;
+        border-radius: 12px;
+        font-weight: 800;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: transform 0.2s;
+    }
+    .modal-actions button:hover {
+        transform: scale(1.05);
+    }
+    .btn-cancel {
+        background: #eee;
+        border: none;
+        color: #666;
+    }
+    .btn-confirm {
+        background: var(--color-viking-red);
+        border: none;
+        color: white;
+        box-shadow: 0 4px 8px rgba(217, 79, 48, 0.3);
+    }
   `]
 })
 export class BoardComponent {
   state = inject(GameStateService);
   engine = inject(GameEngineService);
   peer = inject(PeerService);
+  router = inject(Router);
   // No need to inject TranslateService unless used in code logic, pipe is enough for template
 
   topCards = this.state.topCenterCards;
 
   isPickingUp = false;
   pendingPlayedCards: Card[] = [];
+
+  showCopyToast = signal(false);
+  isExitModalOpen = signal(false);
+
+  copyRoomCode() {
+    navigator.clipboard.writeText(this.state.roomCode());
+    this.showCopyToast.set(true);
+    setTimeout(() => this.showCopyToast.set(false), 2500);
+  }
+
+  onLogoClick() {
+    this.isExitModalOpen.set(true);
+  }
+
+  confirmExit() {
+    this.isExitModalOpen.set(false);
+    this.router.navigate(['/']);
+  }
 
   isMyTurn() {
     return this.state.currentPlayerId() === this.peer.myId();

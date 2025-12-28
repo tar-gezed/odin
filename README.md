@@ -1,5 +1,8 @@
 # ❄️ Odin Board Game
 
+**Live Demo**: [https://tar-gezed.github.io/odin/](https://tar-gezed.github.io/odin/)
+
+
 [![Angular](https://img.shields.io/badge/Angular-19-DD0031?style=for-the-badge&logo=angular)](https://angular.io/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Multiplayer](https://img.shields.io/badge/Multiplayer-P2P-orange?style=for-the-badge)](https://peerjs.com/)

@@ -38,6 +38,13 @@
         },
         "CENTER": {
             "SELECT_INSTRUCTION": "Select a card to add to your hand"
+        },
+        "ROOM_CODE_COPIED": "Code copied to clipboard!",
+        "CONFIRM_EXIT": {
+            "TITLE": "EXIT GAME?",
+            "MESSAGE": "Are you sure you want to leave the current game?",
+            "STAY": "STAY",
+            "EXIT": "EXIT"
         }
     },
     "HAND": {

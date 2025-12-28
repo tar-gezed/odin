@@ -38,6 +38,13 @@
         },
         "CENTER": {
             "SELECT_INSTRUCTION": "Choisis une carte à ajouter à ta main"
+        },
+        "ROOM_CODE_COPIED": "Code copié dans le presse-papier !",
+        "CONFIRM_EXIT": {
+            "TITLE": "QUITTER LA PARTIE ?",
+            "MESSAGE": "Es-tu sûr de vouloir quitter la partie en cours ?",
+            "STAY": "RESTER",
+            "EXIT": "QUITTER"
         }
     },
     "HAND": {
