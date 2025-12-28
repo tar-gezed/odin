@@ -17,6 +17,9 @@
 
     --font-main: 'Inter', sans-serif;
     --font-display: 'Ferrocarbon', sans-serif;
+
+    /* Default rotation if JS hasn't run yet */
+    --shield-rotation: 720deg;
 }
 
 body {
@@ -92,7 +95,7 @@ button:active {
     margin-left: -50vh;
 
     /* Visuals */
-    background-image: url('/assets/imgs/viking_shield.svg');
+    background-image: url('../public/assets/imgs/viking_shield.svg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -129,7 +132,8 @@ button:active {
 
     100% {
         left: 150%;
-        transform: rotate(720deg);
+        /* Use the calculated variable, fallback to 720deg if not set */
+        transform: rotate(var(--shield-rotation));
     }
 }
 

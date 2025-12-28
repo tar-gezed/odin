@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -25,5 +25,32 @@ export class AppComponent {
     const browserLang = translate.getBrowserLang();
     translate.setDefaultLang('en');
     translate.use(browserLang?.match(/en|fr/) ? browserLang : 'en');
+
+    // Initial calculation
+    this.updateShieldRotation();
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.updateShieldRotation();
+  }
+
+  private updateShieldRotation() {
+    if (typeof window !== 'undefined') {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      // Distance traveled is 200% of width (from -50% to 150%)
+      const distance = width * 2;
+
+      // Circumference of the shield (diameter is height of screen)
+      const circumference = height * Math.PI;
+
+      // Calculate rotations needed
+      const rotations = distance / circumference;
+      const degrees = rotations * 360;
+
+      document.documentElement.style.setProperty('--shield-rotation', `${degrees}deg`);
+    }
   }
 }
