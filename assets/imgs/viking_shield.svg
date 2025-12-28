@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="560" viewBox="0 0 560 560">
+<defs>
+<linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="50%" stop-color="#e1cf8f"/><stop offset="50%" stop-color="#d1af65"/></linearGradient>
+<linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="50%" gradientTransform="rotate(25)"><stop offset="50%" stop-color="#d8bf6e"/><stop offset="50%" stop-color="#e3d7a8"/></linearGradient>
+<linearGradient id="innerPlankGradient" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="50%" stop-color="#e1cf8f"/><stop offset="50%" stop-color="#d1af65"/></linearGradient>
+<linearGradient id="plank1" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#7a5c61"/><stop offset="100%" stop-color="#77585e"/></linearGradient>
+<linearGradient id="plank2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#6c4d5d"/><stop offset="100%" stop-color="#5e4559"/></linearGradient>
+<linearGradient id="plank3" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#705062"/><stop offset="100%" stop-color="#5f4659"/></linearGradient>
+<linearGradient id="plank4" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#4c3c50"/><stop offset="100%" stop-color="#42324c"/></linearGradient>
+<linearGradient id="plank5" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#514057"/><stop offset="100%" stop-color="#40374d"/></linearGradient>
+<linearGradient id="centerPlateGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="50%" stop-color="#e1d69e"/><stop offset="50%" stop-color="#e2cb88"/></linearGradient>
+<linearGradient id="centerOrangeGrad" x1="0%" y1="1" x2="0%" y2="0"><stop offset="50%" stop-color="#d0a752"/><stop offset="50%" stop-color="#d2b269"/></linearGradient>
+<filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="rgba(0,0,0,0.4)"/></filter>
+<clipPath id="innerClip"><circle cx="280.0" cy="280.0" r="230"/></clipPath>
+<clipPath id="goldPieceClip"><circle cx="0" cy="0" r="22.5"/></clipPath>
+<clipPath id="stainClip"><circle cx="0" cy="0" r="27.6"/></clipPath>
+<g id="defGoldenPiece">
+<g clip-path="url(#goldPieceClip)">
+<rect x="-25" y="-25" width="25" height="25" fill="#e6dcbe"/>
+<rect x="0" y="-25" width="25" height="25" fill="#ddcea1"/>
+<rect x="-25" y="0" width="25" height="25" fill="#d9c797"/>
+<rect x="0" y="0" width="25" height="25" fill="#c8ac5f"/>
+</g>
+<circle cx="0" cy="0" r="9" fill="#e5d9a2"/>
+<circle cx="0" cy="0" r="22.5" fill="none" stroke="#efd77f" stroke-width="2"/>
+</g>
+</defs>
+<circle cx="280.0" cy="280.0" r="280" fill="url(#shieldGradient)" filter="url(#dropShadow)"/>
+<circle cx="280.0" cy="280.0" r="278" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="3"/>
+<g transform="translate(280.0,280.0)">
+<circle cx="256.0" cy="0.0" r="6" fill="#ccc8b9"/>
+<circle cx="257.0" cy="1.0" r="6" fill="rgba(0,0,0,0.2)" fill-opacity="0.5"/>
+<circle cx="256.0" cy="0.0" r="6" fill="#ccc8b9"/>
+<circle cx="236.5131603228894" cy="97.96695868546298" r="6" fill="#ccc8b9"/>
+<circle cx="237.5131603228894" cy="98.96695868546298" r="6" fill="rgba(0,0,0,0.2)" fill-opacity="0.5"/>
+<circle cx="236.5131603228894" cy="97.96695868546298" r="6" fill="#ccc8b9"/>
+<circle cx="181.01933598375618" cy="181.01933598375618" r="6" fill="#ccc8b9"/>
+<circle cx="182.01933598375618" cy="182.01933598375618" r="6" fill="rgba(0,0,0,0.2)" fill-opacity="0.5"/>
+<circle cx="181.01933598375618" cy="181.01933598375618" r="6" fill="#ccc8b9"/>
+<circle cx="97.966958685463" cy="236.5131603228894" r="6" fill="#ccc8b9"/>
+<circle cx="98.966958685463" cy="237.5131603228894" r="6" fill="rgba(0,0,0,0.2)" fill-opacity="0.5"/>
+<circle cx="97.966958685463" cy="236.5131603228894" r="6" fill="#ccc8b9"/>
+<circle cx="1.567547902908612e-14" cy="256.0" r="6" fill="#ccc8b9"/>
+<circle cx="1.0000000000000158" cy="257.0" r="6" fill="rgba(0,0,0,0.2)" fill-opacity="0.5"/>
+<circle cx="1.567547902908612e-14" cy="256.0" r="6" fill="#ccc8b9"/>
+<circle cx="-97.96695868546297" cy="236.5131603228894" r="6" fill="#ccc8b9"/>
+<circle cx="-96.96695868546297" cy="237.5131603228894" r="6" fill="rgba(0,0,0,0.2)" fill-opacity="0.5"/>
+<circle cx="-97.96695868546297" cy="236.5131603228894" r="6" fill="#ccc8b9"/>
+<circle cx="-181.01933598375615" cy="181.01933598375618" r="6" fill="#ccc8b9"/>
+<circle cx="-180.01933598375615" cy="182.01933598375618" r="6" fill="rgba(0,0,0,0.2)" fill-opacity="0.5"/>
+<circle cx="-181.01933598375615" cy="181.01933598375618" r="6" fill="#ccc8b9"/>
+<circle cx="-236.5131603228894" cy="97.96695868546301" r="6" fill="#ccc8b9"/>
+<circle cx="-235.5131603228894" cy="98.96695868546301" r="6" fill="rgba(0,0,0,0.2)" fill-opacity="0.5"/>
+<circle cx="-236.5131603228894" cy="97.96695868546301" r="6" fill="#ccc8b9"/>
+<circle cx="-256.0" cy="3.135095805817224e-14" r="6" fill="#ccc8b9"/>
+<circle cx="-255.0" cy="1.0000000000000313" r="6" fill="rgba(0,0,0,0.2)" fill-opacity="0.5"/>
+<circle cx="-256.0" cy="3.135095805817224e-14" r="6" fill="#ccc8b9"/>
+<circle cx="-236.51316032288943" cy="-97.96695868546296" r="6" fill="#ccc8b9"/>
+<circle cx="-235.51316032288943" cy="-96.96695868546296" r="6" fill="rgba(0,0,0,0.2)" fill-opacity="0.5"/>
+<circle cx="-236.51316032288943" cy="-97.96695868546296" r="6" fill="#ccc8b9"/>
+<circle cx="-181.0193359837562" cy="-181.01933598375615" r="6" fill="#ccc8b9"/>
+<circle cx="-180.0193359837562" cy="-180.01933598375615" r="6" fill="rgba(0,0,0,0.2)" fill-opacity="0.5"/>
+<circle cx="-181.0193359837562" cy="-181.01933598375615" r="6" fill="#ccc8b9"/>
+<circle cx="-97.96695868546291" cy="-236.51316032288943" r="6" fill="#ccc8b9"/>
+<circle cx="-96.96695868546291" cy="-235.51316032288943" r="6" fill="rgba(0,0,0,0.2)" fill-opacity="0.5"/>
+<circle cx="-97.96695868546291" cy="-236.51316032288943" r="6" fill="#ccc8b9"/>
+<circle cx="-4.702643708725836e-14" cy="-256.0" r="6" fill="#ccc8b9"/>
+<circle cx="0.9999999999999529" cy="-255.0" r="6" fill="rgba(0,0,0,0.2)" fill-opacity="0.5"/>
+<circle cx="-4.702643708725836e-14" cy="-256.0" r="6" fill="#ccc8b9"/>
+<circle cx="97.96695868546304" cy="-236.51316032288938" r="6" fill="#ccc8b9"/>
+<circle cx="98.96695868546304" cy="-235.51316032288938" r="6" fill="rgba(0,0,0,0.2)" fill-opacity="0.5"/>
+<circle cx="97.96695868546304" cy="-236.51316032288938" r="6" fill="#ccc8b9"/>
+<circle cx="181.01933598375612" cy="-181.0193359837562" r="6" fill="#ccc8b9"/>
+<circle cx="182.01933598375612" cy="-180.0193359837562" r="6" fill="rgba(0,0,0,0.2)" fill-opacity="0.5"/>
+<circle cx="181.01933598375612" cy="-181.0193359837562" r="6" fill="#ccc8b9"/>
+<circle cx="236.51316032288943" cy="-97.96695868546293" r="6" fill="#ccc8b9"/>
+<circle cx="237.51316032288943" cy="-96.96695868546293" r="6" fill="rgba(0,0,0,0.2)" fill-opacity="0.5"/>
+<circle cx="236.51316032288943" cy="-97.96695868546293" r="6" fill="#ccc8b9"/>
+</g>
+<g transform="rotate(-45, 280.0, 280.0)">
+<circle cx="280.0" cy="280.0" r="230" fill="#654a57" stroke="#000" stroke-width="1"/>
+<g clip-path="url(#innerClip)">
+<rect x="40.0" y="50.0" width="480" height="92" fill="url(#plank1)"/>
+<rect x="40.0" y="50.0" width="480" height="2" fill="rgba(255,255,255,0.1)"/>
+<rect x="40.0" y="142.0" width="480" height="92" fill="url(#plank2)"/>
+<rect x="40.0" y="140.0" width="480" height="2" fill="rgba(0,0,0,0.3)"/>
+<rect x="40.0" y="142.0" width="480" height="2" fill="rgba(255,255,255,0.1)"/>
+<rect x="40.0" y="234.0" width="480" height="92" fill="url(#plank3)"/>
+<rect x="40.0" y="232.0" width="480" height="2" fill="rgba(0,0,0,0.3)"/>
+<rect x="40.0" y="234.0" width="480" height="2" fill="rgba(255,255,255,0.1)"/>
+<rect x="40.0" y="326.0" width="480" height="92" fill="url(#plank4)"/>
+<rect x="40.0" y="324.0" width="480" height="2" fill="rgba(0,0,0,0.3)"/>
+<rect x="40.0" y="326.0" width="480" height="2" fill="rgba(255,255,255,0.1)"/>
+<rect x="40.0" y="418.0" width="480" height="92" fill="url(#plank5)"/>
+<rect x="40.0" y="416.0" width="480" height="2" fill="rgba(0,0,0,0.3)"/>
+<rect x="40.0" y="418.0" width="480" height="2" fill="rgba(255,255,255,0.1)"/>
+</g>
+<g transform="translate(185.0, 185.0)">
+<rect width="190" height="190" fill="url(#innerPlankGradient)"/>
+<circle cx="95.0" cy="95.0" r="80.75" fill="url(#centerPlateGrad)"/>
+<g transform="translate(95.0, 95.0)">
+<circle cx="65.0" cy="1.0" r="5" fill="#9a9a9a"/>
+<circle cx="64.0" cy="0.0" r="5" fill="#ccc8b9"/>
+<circle cx="46.254833995939045" cy="46.254833995939045" r="5" fill="#9a9a9a"/>
+<circle cx="45.254833995939045" cy="45.254833995939045" r="5" fill="#ccc8b9"/>
+<circle cx="1.000000000000004" cy="65.0" r="5" fill="#9a9a9a"/>
+<circle cx="3.91886975727153e-15" cy="64.0" r="5" fill="#ccc8b9"/>
+<circle cx="-44.25483399593904" cy="46.254833995939045" r="5" fill="#9a9a9a"/>
+<circle cx="-45.25483399593904" cy="45.254833995939045" r="5" fill="#ccc8b9"/>
+<circle cx="-63.0" cy="1.0000000000000078" r="5" fill="#9a9a9a"/>
+<circle cx="-64.0" cy="7.83773951454306e-15" r="5" fill="#ccc8b9"/>
+<circle cx="-44.25483399593905" cy="-44.25483399593904" r="5" fill="#9a9a9a"/>
+<circle cx="-45.25483399593905" cy="-45.25483399593904" r="5" fill="#ccc8b9"/>
+<circle cx="0.9999999999999882" cy="-63.0" r="5" fill="#9a9a9a"/>
+<circle cx="-1.175660927181459e-14" cy="-64.0" r="5" fill="#ccc8b9"/>
+<circle cx="46.25483399593903" cy="-44.25483399593905" r="5" fill="#9a9a9a"/>
+<circle cx="45.25483399593903" cy="-45.25483399593905" r="5" fill="#ccc8b9"/>
+</g>
+<circle cx="95.0" cy="95.0" r="45" fill="url(#shieldGradient)"/>
+<path d="M 50.0 95.0 A 45 45 0 0 0 140.0 95.0" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="2" transform="translate(0,2)"/>
+<circle cx="95.0" cy="95.0" r="38.25" fill="#dec979"/>
+<circle cx="95.0" cy="103.0" r="32.5" fill="rgba(195, 147, 84, 0.25)"/>
+<circle cx="95.0" cy="95.0" r="32.5" fill="url(#centerOrangeGrad)"/>
+<g transform="translate(95.0, 95.0) rotate(45)">
+<circle cx="0" cy="0" r="27.6" fill="#dedac8" stroke="#d3af65" stroke-width="1"/>
+<g clip-path="url(#stainClip)">
+<rect x="-31" y="-31" width="30" height="30" fill="#e4dfcb"/>
+<rect x="1" y="-31" width="30" height="30" fill="#dcd5c5"/>
+<rect x="-31" y="1" width="30" height="30" fill="#d7d0c0"/>
+<rect x="1" y="1" width="30" height="30" fill="#c3bab3"/>
+</g>
+<circle cx="0" cy="0" r="4.5" fill="#e4ddc9"/>
+</g>
+</g>
+<g transform="rotate(45, 280.0, 280.0)">
+<use href="#defGoldenPiece" x="280.0" y="120.0"/>
+<use href="#defGoldenPiece" x="280.0" y="440.0"/>
+<use href="#defGoldenPiece" x="120.0" y="280.0"/>
+<use href="#defGoldenPiece" x="440.0" y="280.0"/>
+</g>
+</g>
+</svg>
