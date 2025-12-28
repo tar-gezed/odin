@@ -84,7 +84,7 @@ import { Card } from '../../models/game.models';
          </div>
 
          <!-- Play Mat Decoration -->
-         <div class="play-mat"></div>
+         <div class="play-mat">
 
          <!-- Active Play Pile (Last 2 sets) -->
          <div class="play-stack">
@@ -95,6 +95,7 @@ import { Card } from '../../models/game.models';
                          (click)="onCenterCardClick(c)">
                </app-card>
             </div>
+         </div>
          </div>
       </div>
 
@@ -227,8 +228,7 @@ import { Card } from '../../models/game.models';
       justify-content: center;
       gap: 20px;
       padding: 15px;
-      /* Remove dark bg */
-      z-index: 10;
+      z-index: 100;
     }
     .player-badge {
       background: white;
@@ -274,11 +274,17 @@ import { Card } from '../../models/game.models';
         font-weight: bold;
         text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         font-size: 1.5rem;
-        
+
         position: absolute;
+        width: 778px;
+        height: 310px;
+        transform: translate(-50%, -50%);
+        left: 50% !important;
+        top: 42% !important;
+        border-radius: 20px;
+        
         inset: 20px;
         border: 4px dashed var(--color-viking-orange);
-        border-radius: 30px;
         pointer-events: none;
         background: rgba(242, 169, 0, 0.1);
         animation: pulseBorder 1.5s infinite;
@@ -292,22 +298,22 @@ import { Card } from '../../models/game.models';
     }
 
     .play-stack {
-       display: flex;
-       justify-content: center;
-       align-items: center;
-       min-height: 200px;
-       /* Place a "mat" or area indicator */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 90%;
     }
 
     .play-mat {
         position: absolute;
         width: 860px;
-        height: 500px; /* Taller too */
+        height: 500px;
         border: 3px solid rgba(255,255,255,0.6);
         border-radius: 40px;
         transform: translate(-50%, -50%);
         left: 50%;
-        top: 50%;
+        /* Shift up to leave space for hand at bottom */
+        top: 42%; 
         pointer-events: none;
         background: rgba(255,255,255,0.15);
         box-shadow: inset 0 0 30px rgba(255,255,255,0.2);

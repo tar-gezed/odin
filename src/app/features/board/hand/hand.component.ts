@@ -44,7 +44,7 @@ import { OdinGameLogic } from '../../../models/odin.logic';
   styles: [`
     .hand-container {
       position: fixed;
-      bottom: 20px;
+      bottom: 0;
       left: 0;
       width: 100%;
       display: flex;
@@ -52,7 +52,8 @@ import { OdinGameLogic } from '../../../models/odin.logic';
       align-items: center;
       gap: 10px;
       z-index: 100;
-      pointer-events: none; /* Let clicks pass through around controls */
+      padding-bottom: 20px; /* Add internal padding for spacing from edge */
+      pointer-events: none; 
     }
     .cards-list {
       display: flex;
@@ -98,6 +99,11 @@ import { OdinGameLogic } from '../../../models/odin.logic';
     button:disabled { background: #cbd5e1; cursor: not-allowed; box-shadow: none; transform: none; }
     button.pass { background: #ef4444; }
     .error { color: #ef4444; font-size: 0.9rem; margin-left: 10px; font-weight: bold; }
+
+    .actions {
+        display: flex;
+        gap: 15px;
+    }
   `]
 })
 export class HandComponent {
